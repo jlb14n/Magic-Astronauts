@@ -10,15 +10,15 @@ Astronaut
 + birth_place: string
 + gender: string
 + alma_mater: set of strings
-+ undergrad_major: string
-+ grad_major: string
++ undergraduate_major: string
++ graduate_major: string
 + military_rank: string
 + military_branch: string
 + is_military_retired: boolean
-+ space_flight_count: integer
++ space_flights: integer
 + space_flight_hr: integer
-+ space_walk_count: integer
-+ space_walk_hr: integer
++ space_walks: integer
++ space_walks_hr: integer
 + missions: set of strings
 + death_date: date
 + death_mission: string
