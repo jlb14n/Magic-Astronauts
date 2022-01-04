@@ -190,11 +190,27 @@ class Astronaut:
 #Part3: Create a List of Astronaut Objects
 import csv
 import random
-with open("astronauts.csv", newline='') as csvfile:
-    astro_list=[{x.lower().replace(' ','_').replace('(','').replace(')',''):y for x,y in row.items()} for row in csv.DictReader(csvfile)]
+#As you are reading in each astronaut, create an Astronaut object with your constructor and store this in a List
 astro_objects=[]
-for astronaut in astro_list:
-    astro_objects.append(Astronaut(astronaut['name'],astronaut['status'],astronaut['space_flight_hr']))
+with open("astronauts.csv", newline='') as csvfile:
+    for row in csv.DictReader(csvfile):
+        object=Astronaut(row['Name'], row['Status'],row['Space Flight (hr)'])
+        for key,value in row.items():
+            if key != 'Name' and key != 'Status' and key != 'Space Flight (hr)':
+                if key == 'Alma Mater':
+                    setattr(object,key.lower().replace(' ','_').replace('(','').replace(')',''),set(value.split('; ')))             
+                elif key=='Missions':
+                    setattr(object,key.lower().replace(' ','_').replace('(','').replace(')',''),set(value.split(', ')))
+                elif key=='Military Branch':
+                    setattr(object,key.lower().replace(' ','_').replace('(','').replace(')',''),value)
+                    try:
+                        value.split('(')[1]
+                        object.is_military_retired=False
+                    except:
+                        object.is_military_retired=True
+                else:
+                    setattr(object,key.lower().replace(' ','_').replace('(','').replace(')',''),value)
+        astro_objects.append(object)
 
 #List all the mutable properties for the first astronaut object.
 print(astro_objects[0].__dict__)
